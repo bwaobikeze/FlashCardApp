@@ -13,7 +13,7 @@ struct ContentView: View {
         VStack {
             Text("CardHub").font(.title)
             Spacer()
-                
+            Rectangle().fill(.gray)
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
