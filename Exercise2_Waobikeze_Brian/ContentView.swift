@@ -48,7 +48,7 @@ struct ContentView: View {
             Image(uiImage: cardViewImages[cardViewIdx]).resizable().frame(width: 90, height: 90)
             
             ZStack(alignment: .top){
-                Rectangle().fill(Color(hex: 0xb4bec8)).frame(width: 330, height: 270).overlay(VStack(alignment: .leading, spacing: 10){
+                Rectangle().fill(Color(hex: 0xb4bec8)).frame(width: 330, height: 270).overlay(VStack(alignment: .leading, spacing: 15){
                     
                     ForEach(CardDecription[cardDecriptionIdx], id: \.self) { description in
                         Text("☆ "+description)
@@ -73,6 +73,13 @@ struct ContentView: View {
                 Text("Card Selector").font(.title.bold()).frame(width: 300, height: 40)
             }.buttonStyle(.borderedProminent).tint(Color(hex: 0x9d785f))
                 .buttonBorderShape(.roundedRectangle(radius: 1)).confirmationDialog("Select Card", isPresented: $showingOptions, titleVisibility: .visible){
+                    ForEach(CardTitle, id: \.self){ title in
+                        Button(title){
+                            cardTitleidx = CardTitle.firstIndex(of: title)!
+                            cardDecriptionIdx=cardTitleidx
+                            cardViewIdx = cardTitleidx
+                        }
+                    }
                 }
             Spacer()
             Spacer()
