@@ -11,6 +11,7 @@ struct ContentView: View {
      @State var cardViewIdx: Int = 0
     @State var cardTitleidx: Int = 0
     @State var cardDecriptionIdx: Int = 0
+    @State var showingOptions = false
     let cardViewImages: [UIImage] = [UIImage(imageLiteralResourceName: "1"),
                                      UIImage(imageLiteralResourceName: "2"),
                                      UIImage(imageLiteralResourceName: "3")]
@@ -47,7 +48,7 @@ struct ContentView: View {
             Image(uiImage: cardViewImages[cardViewIdx]).resizable().frame(width: 90, height: 90)
             
             ZStack(alignment: .top){
-                Rectangle().fill(.gray).frame(width: 330, height: 270).overlay(VStack(alignment: .leading, spacing: 10){
+                Rectangle().fill(Color(hex: 0xb4bec8)).frame(width: 330, height: 270).overlay(VStack(alignment: .leading, spacing: 10){
                     
                     ForEach(CardDecription[cardDecriptionIdx], id: \.self) { description in
                         Text("☆ "+description)
@@ -55,23 +56,24 @@ struct ContentView: View {
                 })
                 
                 Rectangle().frame(width: 330, height: 55)
-                    .foregroundColor(.cyan).overlay(Text("Card: "+CardTitle[cardTitleidx])
-                     .font(.title.bold()).multilineTextAlignment(.leading)
+                    .foregroundColor(Color(hex: 0xf2671c)).overlay(Text("Card: "+CardTitle[cardTitleidx])
+                     .font(.title.bold()).multilineTextAlignment(.leading).foregroundColor(.white)
                     )
             }
             Spacer()
             Button(action: randomCard) {
                 Text("Random Card").font(.title.bold()).frame(width: 300, height: 40)
-            }.buttonStyle(.borderedProminent).tint(.green)
+            }.buttonStyle(.borderedProminent).tint(Color(hex: 0xeec292))
                 .buttonBorderShape(.roundedRectangle(radius: 1))
             Button(action: nextCard) {
                 Text("Next Card").font(.title.bold()).frame(width: 300, height: 40)
-            }.buttonStyle(.borderedProminent).tint(.green)
+            }.buttonStyle(.borderedProminent).tint(Color(hex: 0xf2671c))
                 .buttonBorderShape(.roundedRectangle(radius: 1))
             Button(action: CardSelect) {
                 Text("Card Selector").font(.title.bold()).frame(width: 300, height: 40)
-            }.buttonStyle(.borderedProminent).tint(.green)
-                .buttonBorderShape(.roundedRectangle(radius: 1))
+            }.buttonStyle(.borderedProminent).tint(Color(hex: 0x9d785f))
+                .buttonBorderShape(.roundedRectangle(radius: 1)).confirmationDialog("Select Card", isPresented: $showingOptions, titleVisibility: .visible){
+                }
             Spacer()
             Spacer()
         }
@@ -89,7 +91,7 @@ struct ContentView: View {
         cardDecriptionIdx=cardTitleidx
     }
     func CardSelect(){
-        
+        showingOptions = true
     }
 }
 
