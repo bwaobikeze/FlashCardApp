@@ -12,14 +12,16 @@ struct ContentView: View {
     @State var cardTitleidx: Int = 0
     @State var cardDecriptionIdx: Int = 0
     @State var showingOptions = false
+    
+    //Card image Array
     let cardViewImages: [UIImage] = [UIImage(imageLiteralResourceName: "1"),
                                      UIImage(imageLiteralResourceName: "2"),
                                      UIImage(imageLiteralResourceName: "3")]
-    
+    // Card title Array
     let CardTitle: [String] = ["View Controller",
                                "UIKit",
                                "UIAlertController"]
-    
+    // Card Description array
     let CardDecription: [[String]] = [   [
         "defines the behavior for common VCs",
         "updates the content of the view",
@@ -47,6 +49,8 @@ struct ContentView: View {
             Text("CardHub").font(.title.bold())
             Image(uiImage: cardViewImages[cardViewIdx]).resizable().frame(width: 90, height: 90)
             
+            // this zstack has two rectangles the smaller rectangle has the title text overlayed over it
+            // the bigger rectangle is where the description of each card is overlayed over the rectangle
             ZStack(alignment: .top){
                 Rectangle().fill(Color(hex: 0xb4bec8)).frame(width: 330, height: 270).overlay(VStack(alignment: .leading, spacing: 12){
                     
@@ -61,6 +65,7 @@ struct ContentView: View {
                     )
             }
             Spacer()
+            // The three differnt buttons
             Button(action: randomCard) {
                 Text("Random Card").font(.title.bold()).frame(width: 300, height: 40)
             }.buttonStyle(.borderedProminent).tint(Color(hex: 0xeec292))
@@ -86,6 +91,7 @@ struct ContentView: View {
         }
         .padding()
     }
+    // the functions for the three different functions
     func nextCard (){
         cardTitleidx=(cardTitleidx+1)%3
         cardViewIdx=cardTitleidx

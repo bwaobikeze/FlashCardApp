@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct SplashScreenView: View {
+    // variables to set the size and the opacity 
     @State private var isActive = false
     @State private var size = 0.8
     @State private var opacity = 0.5
+    
+    //First vstack is to determine hoiw long the splash will last until it enters the home screen
+    // Second vstack imports the image in as well as set the size and the animations of the image and the title for the splash screen
     var body: some View {
         if isActive{
             ContentView()

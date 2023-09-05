@@ -6,7 +6,8 @@
 //
 
 import SwiftUI
-
+ //This is an extension of the SwiftUI color type
+// That creates an initializer that when given a hexidecimal it converts it into rgb values
 extension Color{
     init(hex: UInt, alpha: Double = 1) {
             self.init(
