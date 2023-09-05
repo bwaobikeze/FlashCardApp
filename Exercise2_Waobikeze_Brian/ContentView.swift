@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-     @State var cardViewIdx: Int = 0
+    @State var cardViewIdx: Int = 0
     @State var cardTitleidx: Int = 0
     @State var cardDecriptionIdx: Int = 0
     @State var showingOptions = false
@@ -48,12 +48,12 @@ struct ContentView: View {
             Image(uiImage: cardViewImages[cardViewIdx]).resizable().frame(width: 90, height: 90)
             
             ZStack(alignment: .top){
-                Rectangle().fill(Color(hex: 0xb4bec8)).frame(width: 330, height: 270).overlay(VStack(alignment: .leading, spacing: 15){
+                Rectangle().fill(Color(hex: 0xb4bec8)).frame(width: 330, height: 270).overlay(VStack(alignment: .leading, spacing: 12){
                     
                     ForEach(CardDecription[cardDecriptionIdx], id: \.self) { description in
-                        Text("☆ "+description)
+                        Text("☆ "+description).font(.system(size: 18))
                     }
-                })
+                }).offset(y:15)
                 
                 Rectangle().frame(width: 330, height: 55)
                     .foregroundColor(Color(hex: 0xf2671c)).overlay(Text("Card: "+CardTitle[cardTitleidx])
