@@ -12,20 +12,8 @@ class CardData: ObservableObject {
     @Published var selectedTitleIndex: Int = 0
 }
 
-struct ContentView: View {
-    @State var cardViewIdx: Int = 0
-    @State var cardDecriptionIdx: Int = 0
-    @State var showingOptions = false
-    @State var isButtonChangeBulletPressed = false
-    @State var isButtonChangeCardTitle = false
-    @ObservedObject var cardData = CardData()
-    
-    //Card image Array
-    let cardViewImages: [UIImage] = [UIImage(imageLiteralResourceName: "1"),
-                                     UIImage(imageLiteralResourceName: "2"),
-                                     UIImage(imageLiteralResourceName: "3")]
-
-    let CardDecription: [[String]] = [   [
+class CardDescrib: ObservableObject {
+    @Published var CardDecription: [[String]] = [   [
         "defines the behavior for common VCs",
         "updates the content of the view",
         "responding to user interactions",
@@ -47,6 +35,23 @@ struct ContentView: View {
         
     ]]
     
+    @Published var cardDecriptionIdx: Int = 0
+}
+
+struct ContentView: View {
+    @State var cardViewIdx: Int = 0
+    @State var cardDecriptionIdx: Int = 0
+    @State var showingOptions = false
+    @State var isButtonChangeBulletPressed = false
+    @State var isButtonChangeCardTitle = false
+    @ObservedObject var cardData = CardData()
+    @ObservedObject var carddescrib = CardDescrib()
+    
+    //Card image Array
+    let cardViewImages: [UIImage] = [UIImage(imageLiteralResourceName: "1"),
+                                     UIImage(imageLiteralResourceName: "2"),
+                                     UIImage(imageLiteralResourceName: "3")]
+    
     var body: some View {
         NavigationView {
                 VStack {
@@ -58,7 +63,7 @@ struct ContentView: View {
                     ZStack(alignment: .top){
                         Rectangle().fill(Color(hex: 0xb4bec8)).frame(width: 330, height: 270).overlay(VStack(alignment: .leading, spacing: 12){
                             
-                            ForEach(CardDecription[cardDecriptionIdx], id: \.self) { description in
+                            ForEach(carddescrib.CardDecription[carddescrib.cardDecriptionIdx], id: \.self) { description in
                                 Text("☆ "+description).font(.system(size: 18))
                             }
                         }).offset(y:15)
@@ -82,7 +87,7 @@ struct ContentView: View {
                             ForEach(cardData.cardTitle, id: \.self){ title in
                                 Button(title){
                                     cardData.selectedTitleIndex = cardData.cardTitle.firstIndex(of: title)!
-                                    cardDecriptionIdx = cardData.selectedTitleIndex
+                                    carddescrib.cardDecriptionIdx = cardData.selectedTitleIndex
                                     cardViewIdx = cardData.selectedTitleIndex
                                 }
                             }
@@ -90,7 +95,7 @@ struct ContentView: View {
                     Button(action: addBulletToCurrentCard) {
                         Text("Add Bullet").font(.title.bold()).frame(width: 300, height: 40)
                     }.buttonStyle(.borderedProminent).tint(Color(hex: 0xeec292))
-                        .buttonBorderShape(.roundedRectangle(radius: 1)).sheet(isPresented: $isButtonChangeBulletPressed, content:{EditCardDescripRepresentable(switchBackToHome: .constant(false))
+                        .buttonBorderShape(.roundedRectangle(radius: 1)).sheet(isPresented: $isButtonChangeBulletPressed, content:{EditCardDescripRepresentable(switchBackToHome: .constant(false), cardData: cardData , cardDescrib: carddescrib)
                             
                         })
                     
@@ -112,7 +117,7 @@ struct ContentView: View {
     func nextCard (){
         cardData.selectedTitleIndex=(cardData.selectedTitleIndex+1)%3
         cardViewIdx=cardData.selectedTitleIndex
-        cardDecriptionIdx=cardData.selectedTitleIndex
+        carddescrib.cardDecriptionIdx=cardData.selectedTitleIndex
         
     }
     func  addBulletToCurrentCard(){

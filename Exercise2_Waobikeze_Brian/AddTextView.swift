@@ -11,28 +11,37 @@ import SwiftUI
 
 struct AddTextView_Previews: PreviewProvider {
     static var previews: some View {
+        let cardData = CardData()
+        let cardDes = CardDescrib()
         NavigationView{
-            EditCardDescripRepresentable(switchBackToHome: .constant(false))
+            EditCardDescripRepresentable(switchBackToHome: .constant(false),cardData: cardData)
         }
     }
 }
 struct EditCardDescripRepresentable: UIViewControllerRepresentable {
     @Binding var switchBackToHome: Bool
+    var cardData: CardData
+    var cardDescrib: CardDescrib?
     func makeUIViewController(context: Context) -> EditCardDescripViewController {
     let viewController = EditCardDescripViewController()
         viewController.switchBackToHome = switchBackToHome
+        viewController.cardData = cardData
+        viewController.cardDescrib = cardDescrib
         return viewController
     }
     
 
     func updateUIViewController(_ uiViewController: EditCardDescripViewController, context: Context) {
         uiViewController.switchBackToHome = switchBackToHome
+        uiViewController.cardData = cardData
+        uiViewController.cardDescrib = cardDescrib
     }
     
 }
 class EditCardDescripViewController: UIViewController {
     var switchBackToHome: Bool = false
     var cardData: CardData?
+    var cardDescrib: CardDescrib?
     var textField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,6 +94,7 @@ class EditCardDescripViewController: UIViewController {
         // Implement your save action here.
         let enteredText = textField.text ?? ""
         //cardData!.cardTitle[cardData!.selectedTitleIndex] = enteredText
+        cardDescrib!.CardDecription[cardData!.selectedTitleIndex].append(enteredText)
         dismiss(animated: true, completion: nil)
     }
     
