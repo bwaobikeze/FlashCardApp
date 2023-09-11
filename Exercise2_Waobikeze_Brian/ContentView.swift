@@ -50,9 +50,6 @@ struct ContentView: View {
         if isButtonChangeBulletPressed{
             AddTextView()
         }
-        else if isButtonChangeCardTitle{
-            EditTitleTextView()
-        }
         else{
             VStack {
                 Text("CardHub").font(.title.bold())
@@ -98,10 +95,13 @@ struct ContentView: View {
                     .buttonBorderShape(.roundedRectangle(radius: 1))
 
 
-                Button(action: CardSelect) {
+                Button(action: chnageCurrentTitle) {
                     Text("Edit card name").font(.title.bold()).frame(width: 300, height: 40)
                 }.buttonStyle(.borderedProminent).tint(Color(hex: 0xeec292))
                     .buttonBorderShape(.roundedRectangle(radius: 1))
+                    .sheet(isPresented: $isButtonChangeCardTitle, content: {
+                        EditTitleTextViewRepresentable(switchBackToHome: .constant(false))
+                    })
             }
             .padding()
         }

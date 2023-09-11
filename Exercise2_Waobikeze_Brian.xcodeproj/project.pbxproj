@@ -17,7 +17,7 @@
 		3C71C56B2AA5C4200093308A /* color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C71C56A2AA5C4200093308A /* color.swift */; };
 		3C71C56D2AA68EB00093308A /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C71C56C2AA68EB00093308A /* SplashScreenView.swift */; };
 		3CF7B1662AAB989900E8281D /* AddTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF7B1652AAB989900E8281D /* AddTextView.swift */; };
-		3CF7B1682AAB98FE00E8281D /* EditTitleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF7B1672AAB98FE00E8281D /* EditTitleTextView.swift */; };
+		3CF7B16A2AADB61B00E8281D /* EditTitleViewRepresentitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF7B1692AADB61B00E8281D /* EditTitleViewRepresentitive.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +51,7 @@
 		3C71C56A2AA5C4200093308A /* color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = color.swift; sourceTree = "<group>"; };
 		3C71C56C2AA68EB00093308A /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		3CF7B1652AAB989900E8281D /* AddTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTextView.swift; sourceTree = "<group>"; };
-		3CF7B1672AAB98FE00E8281D /* EditTitleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTitleTextView.swift; sourceTree = "<group>"; };
+		3CF7B1692AADB61B00E8281D /* EditTitleViewRepresentitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTitleViewRepresentitive.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +109,7 @@
 				3C5E72692AA2FCD5008C011F /* Preview Content */,
 				3C71C56C2AA68EB00093308A /* SplashScreenView.swift */,
 				3CF7B1652AAB989900E8281D /* AddTextView.swift */,
-				3CF7B1672AAB98FE00E8281D /* EditTitleTextView.swift */,
+				3CF7B1692AADB61B00E8281D /* EditTitleViewRepresentitive.swift */,
 			);
 			path = Exercise2_Waobikeze_Brian;
 			sourceTree = "<group>";
@@ -271,7 +271,7 @@
 			files = (
 				3C71C56B2AA5C4200093308A /* color.swift in Sources */,
 				3C5E72662AA2FCD2008C011F /* ContentView.swift in Sources */,
-				3CF7B1682AAB98FE00E8281D /* EditTitleTextView.swift in Sources */,
+				3CF7B16A2AADB61B00E8281D /* EditTitleViewRepresentitive.swift in Sources */,
 				3C5E72642AA2FCD2008C011F /* Exercise2_Waobikeze_BrianApp.swift in Sources */,
 				3C71C56D2AA68EB00093308A /* SplashScreenView.swift in Sources */,
 				3CF7B1662AAB989900E8281D /* AddTextView.swift in Sources */,
