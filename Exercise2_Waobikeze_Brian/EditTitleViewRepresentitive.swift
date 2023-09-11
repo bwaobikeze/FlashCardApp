@@ -11,31 +11,36 @@ import SwiftUI
 struct EditTitleViewRepresentitive_Previews:
     PreviewProvider {
     static var previews: some View {
+        let cardData = CardData()
         NavigationView{
-            EditTitleTextViewRepresentable(switchBackToHome: .constant(false))
+            EditTitleTextViewRepresentable(switchBackToHome: .constant(false), cardData: cardData)
         }
     }
 }
 struct EditTitleTextViewRepresentable: UIViewControllerRepresentable {
     @Binding var switchBackToHome: Bool
+    var cardData: CardData
+    var ontTextSaved: ((String) -> Void)?
     
     func makeUIViewController(context: Context) -> EditTitleTextViewController {
         let viewController = EditTitleTextViewController()
         viewController.switchBackToHome = switchBackToHome
+        viewController.cardData = cardData
+        
         return viewController
     }
     
     func updateUIViewController(_ uiViewController: EditTitleTextViewController, context: Context) {
         // Update any properties or pass data if needed.
         uiViewController.switchBackToHome = switchBackToHome
+        uiViewController.cardData = cardData
     }
 }
 
 class EditTitleTextViewController: UIViewController {
     var switchBackToHome: Bool = false
-    
+    var cardData: CardData?
     var textField: UITextField!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -91,6 +96,7 @@ class EditTitleTextViewController: UIViewController {
         // Implement your save action here.
         let enteredText = textField.text ?? ""
         //switchBackToHome.toggle()
+        cardData!.cardTitle[cardData!.selectedTitleIndex] = enteredText
         dismiss(animated: true, completion: nil)
     }
     

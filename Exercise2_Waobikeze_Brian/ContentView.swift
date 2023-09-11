@@ -7,22 +7,27 @@
 
 import SwiftUI
 
+class CardData: ObservableObject {
+    @Published var cardTitle: [String] = ["View Controller", "UIKit", "UIAlertController"]
+    @Published var selectedTitleIndex: Int = 0
+}
+
 struct ContentView: View {
     @State var cardViewIdx: Int = 0
-    @State var cardTitleidx: Int = 0
     @State var cardDecriptionIdx: Int = 0
     @State var showingOptions = false
     @State var isButtonChangeBulletPressed = false
     @State var isButtonChangeCardTitle = false
+    @ObservedObject var cardData = CardData()
     
     //Card image Array
     let cardViewImages: [UIImage] = [UIImage(imageLiteralResourceName: "1"),
                                      UIImage(imageLiteralResourceName: "2"),
                                      UIImage(imageLiteralResourceName: "3")]
     // Card title Array
-    let CardTitle: [String] = ["View Controller",
-                               "UIKit",
-                               "UIAlertController"]
+//    let CardTitle: [String] = ["View Controller",
+//                               "UIKit",
+//                               "UIAlertController"]
     // Card Description array
     let CardDecription: [[String]] = [   [
         "defines the behavior for common VCs",
@@ -66,7 +71,7 @@ struct ContentView: View {
                     }).offset(y:15)
                     
                     Rectangle().frame(width: 330, height: 55)
-                        .foregroundColor(Color(hex: 0xf2671c)).overlay(Text("Card: "+CardTitle[cardTitleidx])
+                        .foregroundColor(Color(hex: 0xf2671c)).overlay(Text("Card: "+cardData.cardTitle[cardData.selectedTitleIndex])
                          .font(.title.bold()).multilineTextAlignment(.leading).foregroundColor(.white)
                         )
                 }
@@ -81,11 +86,11 @@ struct ContentView: View {
                     Text("Card Selector").font(.title.bold()).frame(width: 300, height: 40)
                 }.buttonStyle(.borderedProminent).tint(Color(hex: 0x9d785f))
                     .buttonBorderShape(.roundedRectangle(radius: 1)).confirmationDialog("Select Card", isPresented: $showingOptions, titleVisibility: .visible){
-                        ForEach(CardTitle, id: \.self){ title in
+                        ForEach(cardData.cardTitle, id: \.self){ title in
                             Button(title){
-                                cardTitleidx = CardTitle.firstIndex(of: title)!
-                                cardDecriptionIdx=cardTitleidx
-                                cardViewIdx = cardTitleidx
+                                cardData.selectedTitleIndex = cardData.cardTitle.firstIndex(of: title)!
+                                cardDecriptionIdx = cardData.selectedTitleIndex
+                                cardViewIdx = cardData.selectedTitleIndex
                             }
                         }
                     }
@@ -100,7 +105,7 @@ struct ContentView: View {
                 }.buttonStyle(.borderedProminent).tint(Color(hex: 0xeec292))
                     .buttonBorderShape(.roundedRectangle(radius: 1))
                     .sheet(isPresented: $isButtonChangeCardTitle, content: {
-                        EditTitleTextViewRepresentable(switchBackToHome: .constant(false))
+                        EditTitleTextViewRepresentable(switchBackToHome: .constant(false), cardData: cardData)
                     })
             }
             .padding()
@@ -109,9 +114,9 @@ struct ContentView: View {
 
     // the functions for the three different functions
     func nextCard (){
-        cardTitleidx=(cardTitleidx+1)%3
-        cardViewIdx=cardTitleidx
-        cardDecriptionIdx=cardTitleidx
+        cardData.selectedTitleIndex=(cardData.selectedTitleIndex+1)%3
+        cardViewIdx=cardData.selectedTitleIndex
+        cardDecriptionIdx=cardData.selectedTitleIndex
         
     }
     func  addBulletToCurrentCard(){
