@@ -49,11 +49,7 @@ class EditTitleTextViewController: UIViewController {
     func setupUI() {
         view.backgroundColor = .white
         
-        if switchBackToHome {
-            // Navigate to ContentView or perform an action as needed.
-            // Example: navigationController?.pushViewController(ContentView(), animated: true)
-            //navigationController?.pushViewController(ContentView(), animated: true)
-        } else {
+        
             let titleLabel = UILabel()
             titleLabel.text = "Edit Topic"
             titleLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
@@ -89,19 +85,19 @@ class EditTitleTextViewController: UIViewController {
                 stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                 stackView.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 100)
             ])
-        }
+        
     }
     
     @objc func inputTitle() {
         // Implement your save action here.
         let enteredText = textField.text ?? ""
-        //switchBackToHome.toggle()
         cardData!.cardTitle[cardData!.selectedTitleIndex] = enteredText
         dismiss(animated: true, completion: nil)
     }
     
     @objc func goBacktoHomePage() {
-        switchBackToHome.toggle()
+        //switchBackToHome.toggle()
+        dismiss(animated: true, completion: nil)
     }
     @objc func textFieldDidChange(_ textField: UITextField) {
           // Handle text field value change here if needed.

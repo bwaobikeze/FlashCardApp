@@ -24,11 +24,7 @@ struct ContentView: View {
     let cardViewImages: [UIImage] = [UIImage(imageLiteralResourceName: "1"),
                                      UIImage(imageLiteralResourceName: "2"),
                                      UIImage(imageLiteralResourceName: "3")]
-    // Card title Array
-//    let CardTitle: [String] = ["View Controller",
-//                               "UIKit",
-//                               "UIAlertController"]
-    // Card Description array
+
     let CardDecription: [[String]] = [   [
         "defines the behavior for common VCs",
         "updates the content of the view",
@@ -52,63 +48,65 @@ struct ContentView: View {
     ]]
     
     var body: some View {
-        if isButtonChangeBulletPressed{
-            AddTextView()
-        }
-        else{
-            VStack {
-                Text("CardHub").font(.title.bold())
-                Image(uiImage: cardViewImages[cardViewIdx]).resizable().frame(width: 90, height: 90)
-                
-                // this zstack has two rectangles the smaller rectangle has the title text overlayed over it
-                // the bigger rectangle is where the description of each card is overlayed over the rectangle
-                ZStack(alignment: .top){
-                    Rectangle().fill(Color(hex: 0xb4bec8)).frame(width: 330, height: 270).overlay(VStack(alignment: .leading, spacing: 12){
-                        
-                        ForEach(CardDecription[cardDecriptionIdx], id: \.self) { description in
-                            Text("☆ "+description).font(.system(size: 18))
-                        }
-                    }).offset(y:15)
+        NavigationView {
+            if isButtonChangeBulletPressed{
+                AddTextView()
+            }
+            else{
+                VStack {
+                    Text("CardHub").font(.title.bold())
+                    Image(uiImage: cardViewImages[cardViewIdx]).resizable().frame(width: 90, height: 90)
                     
-                    Rectangle().frame(width: 330, height: 55)
-                        .foregroundColor(Color(hex: 0xf2671c)).overlay(Text("Card: "+cardData.cardTitle[cardData.selectedTitleIndex])
-                         .font(.title.bold()).multilineTextAlignment(.leading).foregroundColor(.white)
-                        )
-                }
-                Spacer()
-                // The three differnt buttons
-                Button(action: nextCard) {
-                    Text("Next Card").font(.title.bold()).frame(width: 300, height: 40)
-                }.buttonStyle(.borderedProminent).tint(Color(hex: 0xf2671c))
-                    .buttonBorderShape(.roundedRectangle(radius: 1))
-                
-                Button(action: CardSelect) {
-                    Text("Card Selector").font(.title.bold()).frame(width: 300, height: 40)
-                }.buttonStyle(.borderedProminent).tint(Color(hex: 0x9d785f))
-                    .buttonBorderShape(.roundedRectangle(radius: 1)).confirmationDialog("Select Card", isPresented: $showingOptions, titleVisibility: .visible){
-                        ForEach(cardData.cardTitle, id: \.self){ title in
-                            Button(title){
-                                cardData.selectedTitleIndex = cardData.cardTitle.firstIndex(of: title)!
-                                cardDecriptionIdx = cardData.selectedTitleIndex
-                                cardViewIdx = cardData.selectedTitleIndex
+                    // this zstack has two rectangles the smaller rectangle has the title text overlayed over it
+                    // the bigger rectangle is where the description of each card is overlayed over the rectangle
+                    ZStack(alignment: .top){
+                        Rectangle().fill(Color(hex: 0xb4bec8)).frame(width: 330, height: 270).overlay(VStack(alignment: .leading, spacing: 12){
+                            
+                            ForEach(CardDecription[cardDecriptionIdx], id: \.self) { description in
+                                Text("☆ "+description).font(.system(size: 18))
+                            }
+                        }).offset(y:15)
+                        
+                        Rectangle().frame(width: 330, height: 55)
+                            .foregroundColor(Color(hex: 0xf2671c)).overlay(Text("Card: "+cardData.cardTitle[cardData.selectedTitleIndex])
+                                .font(.title.bold()).multilineTextAlignment(.leading).foregroundColor(.white)
+                            )
+                    }
+                    Spacer()
+                    // The three differnt buttons
+                    Button(action: nextCard) {
+                        Text("Next Card").font(.title.bold()).frame(width: 300, height: 40)
+                    }.buttonStyle(.borderedProminent).tint(Color(hex: 0xf2671c))
+                        .buttonBorderShape(.roundedRectangle(radius: 1))
+                    
+                    Button(action: CardSelect) {
+                        Text("Card Selector").font(.title.bold()).frame(width: 300, height: 40)
+                    }.buttonStyle(.borderedProminent).tint(Color(hex: 0x9d785f))
+                        .buttonBorderShape(.roundedRectangle(radius: 1)).confirmationDialog("Select Card", isPresented: $showingOptions, titleVisibility: .visible){
+                            ForEach(cardData.cardTitle, id: \.self){ title in
+                                Button(title){
+                                    cardData.selectedTitleIndex = cardData.cardTitle.firstIndex(of: title)!
+                                    cardDecriptionIdx = cardData.selectedTitleIndex
+                                    cardViewIdx = cardData.selectedTitleIndex
+                                }
                             }
                         }
-                    }
-                Button(action: addBulletToCurrentCard) {
-                    Text("Add Bullet").font(.title.bold()).frame(width: 300, height: 40)
-                }.buttonStyle(.borderedProminent).tint(Color(hex: 0xeec292))
-                    .buttonBorderShape(.roundedRectangle(radius: 1))
-
-
-                Button(action: chnageCurrentTitle) {
-                    Text("Edit card name").font(.title.bold()).frame(width: 300, height: 40)
-                }.buttonStyle(.borderedProminent).tint(Color(hex: 0xeec292))
-                    .buttonBorderShape(.roundedRectangle(radius: 1))
-                    .sheet(isPresented: $isButtonChangeCardTitle, content: {
-                        EditTitleTextViewRepresentable(switchBackToHome: .constant(false), cardData: cardData)
-                    })
+                    Button(action: addBulletToCurrentCard) {
+                        Text("Add Bullet").font(.title.bold()).frame(width: 300, height: 40)
+                    }.buttonStyle(.borderedProminent).tint(Color(hex: 0xeec292))
+                        .buttonBorderShape(.roundedRectangle(radius: 1))
+                    
+                    
+                    Button(action: chnageCurrentTitle) {
+                        Text("Edit card name").font(.title.bold()).frame(width: 300, height: 40)
+                    }.buttonStyle(.borderedProminent).tint(Color(hex: 0xeec292))
+                        .buttonBorderShape(.roundedRectangle(radius: 1))
+                        .sheet(isPresented: $isButtonChangeCardTitle, content: {
+                            EditTitleTextViewRepresentable(switchBackToHome: .constant(false), cardData: cardData)
+                        })
+                }
+                .padding()
             }
-            .padding()
         }
         }
 
@@ -132,6 +130,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+            ContentView()
     }
 }
