@@ -49,10 +49,6 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            if isButtonChangeBulletPressed{
-                AddTextView()
-            }
-            else{
                 VStack {
                     Text("CardHub").font(.title.bold())
                     Image(uiImage: cardViewImages[cardViewIdx]).resizable().frame(width: 90, height: 90)
@@ -94,7 +90,9 @@ struct ContentView: View {
                     Button(action: addBulletToCurrentCard) {
                         Text("Add Bullet").font(.title.bold()).frame(width: 300, height: 40)
                     }.buttonStyle(.borderedProminent).tint(Color(hex: 0xeec292))
-                        .buttonBorderShape(.roundedRectangle(radius: 1))
+                        .buttonBorderShape(.roundedRectangle(radius: 1)).sheet(isPresented: $isButtonChangeBulletPressed, content:{EditCardDescripRepresentable(switchBackToHome: .constant(false))
+                            
+                        })
                     
                     
                     Button(action: chnageCurrentTitle) {
@@ -106,7 +104,7 @@ struct ContentView: View {
                         })
                 }
                 .padding()
-            }
+            
         }
         }
 

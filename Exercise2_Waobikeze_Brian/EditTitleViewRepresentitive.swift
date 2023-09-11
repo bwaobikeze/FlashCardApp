@@ -20,7 +20,6 @@ struct EditTitleViewRepresentitive_Previews:
 struct EditTitleTextViewRepresentable: UIViewControllerRepresentable {
     @Binding var switchBackToHome: Bool
     var cardData: CardData
-    var ontTextSaved: ((String) -> Void)?
     
     func makeUIViewController(context: Context) -> EditTitleTextViewController {
         let viewController = EditTitleTextViewController()
